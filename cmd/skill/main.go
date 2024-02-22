@@ -22,6 +22,7 @@ func run() error {
 
 	logger.Log.Info("Running server", zap.String("address", flagRunAddr))
 	return http.ListenAndServe(flagRunAddr, logger.RequestLogger(webhook))
+
 }
 
 func webhook(w http.ResponseWriter, r *http.Request) {
