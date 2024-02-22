@@ -20,7 +20,6 @@ func TestWebhook(t *testing.T) {
         "version": "1.0"
     }`
 
-	// описываем набор данных: метод запроса, ожидаемый код ответа, ожидаемое тело
 	testCases := []struct {
 		method       string
 		expectedCode int
@@ -34,8 +33,6 @@ func TestWebhook(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.method, func(t *testing.T) {
-			// делаем запрос с помощью библиотеки resty к адресу запущенного сервера,
-			// который хранится в поле URL соответствующей структуры
 			req := resty.New().R()
 			req.Method = tc.method
 			req.URL = srv.URL
@@ -44,7 +41,7 @@ func TestWebhook(t *testing.T) {
 			assert.NoError(t, err, "error making HTTP request")
 
 			assert.Equal(t, tc.expectedCode, resp.StatusCode(), "Response code didn't match expected")
-			// проверяем корректность полученного тела ответа, если мы его ожидаем
+
 			if tc.expectedBody != "" {
 				assert.JSONEq(t, tc.expectedBody, string(resp.Body()))
 			}
