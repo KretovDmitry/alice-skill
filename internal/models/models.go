@@ -14,7 +14,8 @@ type Request struct {
 }
 
 type Session struct {
-	New bool `json:"new"`
+	New  bool `json:"new"`
+	User User
 }
 
 // SimpleUtterance описывает команду, полученную в запросе типа SimpleUtterance.
@@ -33,4 +34,9 @@ type Response struct {
 // ResponsePayload описывает ответ, который нужно озвучить.
 type ResponsePayload struct {
 	Text string `json:"text"`
+}
+
+type User struct {
+	UserID      string
+	AccessToken string
 }
